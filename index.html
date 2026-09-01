@@ -13,6 +13,7 @@
     
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -34,6 +35,7 @@
                         neutralDark: {
                             800: '#1e293b',
                             900: '#0f172a',
+                            950: '#090d16',
                         }
                     }
                 }
@@ -48,15 +50,156 @@
         .transition-all-300 {
             transition: all 0.3s ease-in-out;
         }
-        /* Desain minimalis mengutamakan border halus dan warna flat */
-        .minimal-card {
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
+        
+        /* HD Ambient Mesh Gradients */
+        .bg-mesh-light {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.08) 0px, transparent 50%),
+                radial-gradient(at 50% 50%, rgba(168, 85, 247, 0.04) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.06) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+            background-attachment: fixed;
         }
-        .minimal-card:hover {
-            border-color: #4f46e5;
+        
+        .dark .bg-mesh-dark,
+        .dark body {
+            background-color: #090d16;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 70, 229, 0.16) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(14, 165, 233, 0.14) 0px, transparent 50%),
+                radial-gradient(at 50% 40%, rgba(129, 140, 248, 0.08) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(6, 182, 212, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.18) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        /* Glassmorphic & Border Cards */
+        .glass-card-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .dark .glass-card-dark {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+
+        /* SLIDE TRANSITION ANIMATIONS (In & Out) - Changed to Fade as requested */
+        @keyframes slideInRight {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideOutLeft {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.98); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: scale(1); }
+            to { opacity: 0; transform: scale(0.98); }
+        }
+
+        .slide-in-right {
+            animation: slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .slide-out-left {
+            animation: slideOutLeft 0.25s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+        }
+        .slide-in-left {
+            animation: slideInLeft 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .slide-out-right {
+            animation: slideOutRight 0.25s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+        }
+
+        /* Micro subtle glowing animations */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 6s ease-in-out infinite;
+        }
+
+        /* Floating Background Shapes */
+        .shape-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -2;
+            opacity: 0.3;
+            animation: float 20s infinite alternate ease-in-out;
+            pointer-events: none;
+        }
+        .shape-1 {
+            top: 10%; left: -10%;
+            width: 400px; height: 400px;
+            background: rgba(99, 102, 241, 0.4);
+            animation-delay: 0s;
+        }
+        .shape-2 {
+            bottom: -10%; right: -5%;
+            width: 500px; height: 500px;
+            background: rgba(14, 165, 233, 0.3);
+            animation-delay: -5s;
+        }
+        .shape-3 {
+            top: 40%; left: 40%;
+            width: 350px; height: 350px;
+            background: rgba(168, 85, 247, 0.3);
+            animation-delay: -10s;
+        }
+        .dark .shape-1 { background: rgba(99, 102, 241, 0.15); }
+        .dark .shape-2 { background: rgba(14, 165, 233, 0.1); }
+        .dark .shape-3 { background: rgba(168, 85, 247, 0.1); }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.1); }
+        }
+
+        /* Minimalist Background Pattern */
+        .bg-pattern-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            background-image: radial-gradient(rgba(99, 102, 241, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.6;
+        }
+        .dark .bg-pattern-overlay {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+
+        /* Scroll Animations (Fade In Up) */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
+
+    <!-- Theme Initialization Script to Prevent FOUC -->
+    <script>
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
     
     <script>
         function handlePhotoError(imageElement) {
@@ -80,8 +223,8 @@
                                 <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider">Ekonomi Syariah '26</p>
                                 <p class="text-xs text-slate-400">UIN Siber Syekh Nurjati Cirebon</p>
                                 <div class="flex gap-2.5 items-center pt-2">
-                                    <img src="logo_imeis.png" alt="IMEIs" class="h-6 w-auto object-contain bg-white rounded border border-slate-100 p-0.5" title="IMEIs">
-                                    <img src="logo_fossei.png" alt="FoSSEI" class="h-6 w-auto object-contain bg-white rounded border border-slate-100 p-0.5" title="FoSSEI">
+                                    <img src="Foto/logo_imeis.png" alt="IMEIs" class="h-6 w-auto object-contain bg-white rounded border border-slate-100 p-0.5" title="IMEIs">
+                                    <img src="Foto/logo_fossei.png" alt="FoSSEI" class="h-6 w-auto object-contain bg-white rounded border border-slate-100 p-0.5" title="FoSSEI">
                                 </div>
                             </div>
                         </div>
@@ -99,138 +242,184 @@
         }
     </script>
 </head>
-<body class="bg-white text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-800">
+<body class="bg-mesh-light dark:bg-mesh-dark text-slate-800 dark:text-slate-100 antialiased selection:bg-brand-100 selection:text-brand-800 transition-colors duration-300">
+    <!-- Floating Background Shapes -->
+    <div class="shape-blob shape-1"></div>
+    <div class="shape-blob shape-2"></div>
+    <div class="shape-blob shape-3"></div>
+    
+    <!-- Minimalist Pattern Overlay -->
+    <div class="bg-pattern-overlay"></div>
 
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 w-full bg-white border-b border-slate-100 z-50 transition-all-300">
+    <nav class="fixed top-0 left-0 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 z-50 transition-all-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="#home" class="text-xl font-bold text-slate-900 flex items-center gap-2">
-                        <span class="bg-indigo-600 text-white px-3 py-1 rounded-lg text-sm font-semibold tracking-wide">NFR</span>
-                        <span class="hidden sm:inline text-base font-bold tracking-tight text-slate-800">Niqa' Fadhlur</span>
+                    <a href="#home" class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <span class="bg-indigo-600 dark:bg-indigo-500 text-white px-3 py-1 rounded-lg text-sm font-semibold tracking-wide shadow-sm">NFR</span>
+                        <span class="hidden sm:inline text-base font-bold tracking-tight text-slate-800 dark:text-slate-100">Niqa' Fadhlur</span>
                     </a>
                 </div>
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Beranda</a>
-                    <a href="#about" class="text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Tentang</a>
-                    <a href="#experience" class="text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Pengalaman</a>
-                    <a href="#skills" class="text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Keahlian</a>
-                    <a href="#interactive-hub" class="text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Simulasi Proyek</a>
-                    <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all-300">Hubungi Saya</a>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-sm transition-all-300">Beranda</a>
+                    <a href="#about" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-sm transition-all-300">Tentang</a>
+                    <a href="#experience" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-sm transition-all-300">Pengalaman</a>
+                    <a href="#skills" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-sm transition-all-300">Keahlian</a>
+                    <a href="#achievements" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-sm transition-all-300 flex items-center gap-1.5">
+                        <span>Prestasi</span>
+                        <span class="px-1.5 py-0.2 text-[9px] font-bold bg-indigo-50 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800/60 rounded">5</span>
+                    </a>
+                    <a href="#interactive-hub" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium text-sm transition-all-300">Simulasi Proyek</a>
+                    
+                    <!-- Theme Toggle Switch Desktop -->
+                    <button id="theme-toggle" onclick="toggleTheme()" class="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 flex items-center transition-all-300 focus:outline-none shadow-inner" aria-label="Ganti Tema">
+                        <span id="theme-toggle-slider" class="absolute left-1 w-5 h-5 rounded-full bg-white dark:bg-slate-900 shadow-sm transform transition-transform duration-300 flex items-center justify-center">
+                            <i id="theme-toggle-dark-icon" class="fa-solid fa-moon text-[10px] text-indigo-600 hidden"></i>
+                            <i id="theme-toggle-light-icon" class="fa-solid fa-sun text-[10px] text-amber-500 hidden"></i>
+                        </span>
+                    </button>
+
+                    <a href="#contact" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-all-300 shadow-sm">Hubungi Saya</a>
                 </div>
-                <!-- Mobile Menu Button -->
-                <div class="flex md:hidden">
-                    <button id="mobile-menu-btn" class="text-slate-500 hover:text-indigo-600 focus:outline-none" aria-label="Toggle Menu">
+                <!-- Mobile Menu Button & Mobile Theme Toggle -->
+                <div class="flex items-center gap-2 md:hidden">
+                    <button id="theme-toggle-mobile" onclick="toggleTheme()" class="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 flex items-center transition-all-300 focus:outline-none shadow-inner" aria-label="Ganti Tema">
+                        <span id="theme-toggle-slider-mobile" class="absolute left-1 w-5 h-5 rounded-full bg-white dark:bg-slate-900 shadow-sm transform transition-transform duration-300 flex items-center justify-center">
+                            <i id="theme-toggle-mobile-dark-icon" class="fa-solid fa-moon text-[10px] text-indigo-600 hidden"></i>
+                            <i id="theme-toggle-mobile-light-icon" class="fa-solid fa-sun text-[10px] text-amber-500 hidden"></i>
+                        </span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 focus:outline-none p-1.5" aria-label="Toggle Menu">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
             </div>
         </div>
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-100 px-4 py-4 space-y-3">
-            <a href="#home" class="block text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Beranda</a>
-            <a href="#about" class="block text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Tentang</a>
-            <a href="#experience" class="block text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Pengalaman</a>
-            <a href="#skills" class="block text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Keahlian</a>
-            <a href="#interactive-hub" class="block text-slate-500 hover:text-indigo-600 font-medium text-sm transition-all-300">Simulasi Proyek</a>
-            <a href="#contact" class="block bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg text-sm font-semibold">Hubungi Saya</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 py-4 space-y-3">
+            <a href="#home" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-sm transition-all-300">Beranda</a>
+            <a href="#about" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-sm transition-all-300">Tentang</a>
+            <a href="#experience" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-sm transition-all-300">Pengalaman</a>
+            <a href="#skills" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-sm transition-all-300">Keahlian</a>
+            <a href="#achievements" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-sm transition-all-300">Prestasi & Sertifikasi (5)</a>
+            <a href="#interactive-hub" class="block text-slate-600 dark:text-slate-300 hover:text-indigo-600 font-medium text-sm transition-all-300">Simulasi Proyek</a>
+            <a href="#contact" class="block bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2.5 rounded-lg text-sm font-semibold shadow-sm">Hubungi Saya</a>
         </div>
     </nav>
 
     <!-- HERO SECTION -->
-    <section id="home" class="pt-28 pb-16 md:py-28 bg-white border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="home" class="pt-28 pb-16 md:py-28 relative overflow-hidden border-b border-slate-200/80 dark:border-slate-800/80">
+        <!-- Ambient HD Gradient Orbs -->
+        <div class="absolute top-10 left-1/4 w-96 h-96 bg-indigo-500/10 dark:bg-indigo-600/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-sky-500/10 dark:bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <!-- Text Area -->
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left order-2 lg:order-1">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-50 text-indigo-700 border border-brand-100">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse"></span>
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-brand-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-brand-100 dark:border-indigo-800/60 shadow-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse"></span>
                         Fresh Graduate Ekonomi Syariah
                     </span>
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 tracking-tight leading-none">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight leading-none">
                         Niqa' Fadhlur Rohman
                     </h1>
-                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+                    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
                         Spesialis Analisis Pertumbuhan Ekonomi Syariah dengan kemahiran teknis yang kuat di bidang data entry, pengolahan administrasi retail, serta manajemen database perkantoran.
                     </p>
                     
                     <!-- Quick Contact Links -->
                     <div class="flex flex-wrap gap-2.5 justify-center lg:justify-start pt-2">
-                        <a href="mailto:rohmanniqo@gmail.com" class="flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-2 rounded-lg hover:border-indigo-600 transition-all-300 text-xs sm:text-sm font-medium text-slate-700">
-                            <i class="fa-regular fa-envelope text-indigo-600 text-sm"></i> rohmanniqo@gmail.com
+                        <a href="mailto:rohmanniqo@gmail.com" class="flex items-center gap-2 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 px-3.5 py-2 rounded-lg hover:border-indigo-600 dark:hover:border-indigo-400 transition-all-300 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm">
+                            <i class="fa-regular fa-envelope text-indigo-600 dark:text-indigo-400 text-sm"></i> rohmanniqo@gmail.com
                         </a>
-                        <a href="tel:087815704674" class="flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-2 rounded-lg hover:border-indigo-600 transition-all-300 text-xs sm:text-sm font-medium text-slate-700">
-                            <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> 087815704674
+                        <a href="tel:087815704674" class="flex items-center gap-2 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 px-3.5 py-2 rounded-lg hover:border-indigo-600 dark:hover:border-indigo-400 transition-all-300 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm">
+                            <i class="fa-brands fa-whatsapp text-emerald-600 dark:text-emerald-400 text-sm"></i> 087815704674
                         </a>
-                        <a href="https://www.linkedin.com/in/niqa/" target="_blank" class="flex items-center gap-2 bg-white border border-slate-200 px-3.5 py-2 rounded-lg hover:border-indigo-600 transition-all-300 text-xs sm:text-sm font-medium text-slate-700">
-                            <i class="fa-brands fa-linkedin text-sky-600 text-sm"></i> LinkedIn
+                        <a href="https://www.linkedin.com/in/niqa/" target="_blank" class="flex items-center gap-2 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 px-3.5 py-2 rounded-lg hover:border-indigo-600 dark:hover:border-indigo-400 transition-all-300 text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 shadow-sm">
+                            <i class="fa-brands fa-linkedin text-sky-600 dark:text-sky-400 text-sm"></i> LinkedIn
+                        </a>
+                    </div>
+
+                    <!-- Highlight Badges: Prestasi & Sertifikasi Terverifikasi -->
+                    <div class="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-2">
+                        <a href="#achievements" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200 text-xs font-bold hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-all-300 shadow-sm">
+                            <i class="fa-solid fa-trophy text-amber-600 dark:text-amber-400"></i> Juara 1 Debat & Olimpiade
+                        </a>
+                        <a href="#achievements" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 dark:bg-rose-950/40 border border-red-200 dark:border-rose-800/60 text-red-900 dark:text-rose-200 text-xs font-bold hover:bg-red-100 dark:hover:bg-rose-900/60 transition-all-300 shadow-sm">
+                            <i class="fa-solid fa-certificate text-red-600 dark:text-rose-400"></i> BNSP Digital Marketing
+                        </a>
+                        <a href="#achievements" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-sky-950/40 border border-blue-200 dark:border-sky-800/60 text-blue-900 dark:text-sky-200 text-xs font-bold hover:bg-blue-100 dark:hover:bg-sky-900/60 transition-all-300 shadow-sm">
+                            <i class="fa-solid fa-robot text-blue-600 dark:text-sky-400"></i> AI Certified
+                        </a>
+                        <a href="#achievements" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200 text-xs font-bold hover:bg-emerald-100 dark:hover:bg-emerald-900/60 transition-all-300 shadow-sm">
+                            <i class="fa-solid fa-newspaper text-emerald-600 dark:text-emerald-400"></i> Author Jurnal Finotec
                         </a>
                     </div>
 
                     <!-- Call To Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-4">
-                        <a href="#interactive-hub" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-all-300 text-sm">
-                            <i class="fa-solid fa-laptop-code text-sm"></i> Coba Simulasi Proyek
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start pt-3">
+                        <a href="#achievements" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-all-300 text-sm shadow-md hover:shadow-indigo-500/25">
+                            <i class="fa-solid fa-award text-sm"></i> Lihat Prestasi & Sertifikat
                         </a>
-                        <a href="#experience" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white border border-slate-200 hover:border-slate-300 text-slate-700 rounded-lg font-semibold transition-all-300 text-sm">
-                            Magang & Organisasi <i class="fa-solid fa-arrow-right text-xs text-indigo-600"></i>
+                        <a href="#interactive-hub" class="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-700 dark:text-slate-200 rounded-lg font-semibold transition-all-300 text-sm shadow-sm">
+                            <i class="fa-solid fa-laptop-code text-indigo-600 dark:text-indigo-400 text-sm"></i> Simulasi Proyek
                         </a>
                     </div>
                 </div>
 
-                <!-- Graphic & Photo Showcase Area with Intelligent Path Encoding Fallbacks -->
+                <!-- Graphic & Photo Showcase Area -->
                 <div class="lg:col-span-5 flex justify-center order-1 lg:order-2">
                     <div class="relative w-72 h-96 sm:w-80 sm:h-[400px] md:w-[320px] md:h-[420px]">
                         
-                        <!-- Main Image Container (Tanpa Gradasi & Tanpa Kemiringan) -->
-                        <div id="profile-container" class="w-full h-full bg-slate-50 rounded-2xl p-1.5 border border-slate-200 overflow-hidden">
-                            <!-- Attempt loading standard image path -->
+                        <!-- Main Image Container -->
+                        <div id="profile-container" class="w-full h-full bg-slate-100 dark:bg-slate-800/80 rounded-2xl p-1.5 border border-slate-200 dark:border-slate-700/80 overflow-hidden shadow-md">
                             <img 
                                 id="profile-photo"
-                                src="image.jpg" 
+                                src="Foto/image.jpg" 
                                 alt="Niqa' Fadhlur Rohman" 
                                 class="w-full h-full object-cover rounded-xl object-top grayscale hover:grayscale-0 transition-all-300 duration-500"
                                 onerror="handlePhotoError(this)"
                             />
                             
-                            <!-- Elegant flat overlay card -->
-                            <div class="absolute bottom-4 left-4 right-4 bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                            <!-- Elegant overlay card -->
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/95 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200 dark:border-slate-700/80 rounded-xl p-4 shadow-lg">
                                 <div class="flex justify-between items-center mb-1">
-                                    <h4 class="font-bold text-slate-900 text-sm">Niqa' Fadhlur R.</h4>
-                                    <span class="text-[9px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded font-sans">UIN Siber Cirebon</span>
+                                    <h4 class="font-bold text-slate-900 dark:text-white text-sm">Niqa' Fadhlur R.</h4>
+                                    <span class="text-[9px] bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 font-bold px-2 py-0.5 rounded font-sans border border-indigo-100 dark:border-indigo-800">UIN Siber Cirebon</span>
                                 </div>
                                 <div class="flex justify-between items-center">
-                                    <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">Ekonomi Syariah '26</p>
+                                    <p class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Ekonomi Syariah '26</p>
                                     <div class="flex items-center gap-2">
-                                        <img src="logo_imeis.png" alt="IMEIs Logo" class="h-6 w-auto object-contain hover:scale-110 transition-transform duration-300" title="IMEIs">
-                                        <img src="logo_fossei.png" alt="FoSSEI Logo" class="h-6 w-auto object-contain hover:scale-110 transition-transform duration-300" title="FoSSEI">
+                                        <img src="Foto/logo_imeis.png" alt="IMEIs Logo" class="h-6 w-auto object-contain hover:scale-110 transition-transform duration-300 bg-white/90 rounded p-0.5" title="IMEIs">
+                                        <img src="Foto/logo_fossei.png" alt="FoSSEI Logo" class="h-6 w-auto object-contain hover:scale-110 transition-transform duration-300 bg-white/90 rounded p-0.5" title="FoSSEI">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- Floating graphic element 1 (Flat White) -->
-                        <div class="absolute -top-3 -left-3 bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2 z-20 shadow-sm">
-                            <div class="w-8 h-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold">
+                        <!-- Floating graphic element 1 -->
+                        <div class="absolute -top-3 -left-3 bg-white/95 dark:bg-slate-900/90 backdrop-blur-sm p-3 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2 z-20 shadow-md">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-50 dark:bg-indigo-950 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
                                 <i class="fa-solid fa-chart-line text-xs"></i>
                             </div>
                             <div>
-                                <p class="text-[9px] text-slate-400 font-bold">LITERASI</p>
-                                <p class="text-xs font-bold text-slate-800">Ekonomi Islam</p>
+                                <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">LITERASI</p>
+                                <p class="text-xs font-bold text-slate-800 dark:text-slate-200">Ekonomi Islam</p>
                             </div>
                         </div>
 
-                        <!-- Floating graphic element 2 (Flat White) -->
-                        <div class="absolute -bottom-3 -right-3 bg-white p-3 rounded-xl border border-slate-200 flex items-center gap-2 z-20 shadow-sm">
-                            <div class="w-8 h-8 rounded-lg bg-sky-50 flex items-center justify-center text-sky-600 font-bold">
+                        <!-- Floating graphic element 2 -->
+                        <div class="absolute -bottom-3 -right-3 bg-white/95 dark:bg-slate-900/90 backdrop-blur-sm p-3 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center gap-2 z-20 shadow-md">
+                            <div class="w-8 h-8 rounded-lg bg-sky-50 dark:bg-sky-950 flex items-center justify-center text-sky-600 dark:text-sky-400 font-bold">
                                 <i class="fa-solid fa-keyboard text-xs"></i>
                             </div>
                             <div>
-                                <p class="text-[9px] text-slate-400 font-bold">AKURASI</p>
-                                <p class="text-xs font-bold text-slate-800">95% Data Entry</p>
+                                <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold">AKURASI</p>
+                                <p class="text-xs font-bold text-slate-800 dark:text-slate-200">95% Data Entry</p>
                             </div>
                         </div>
                     </div>
@@ -240,38 +429,38 @@
     </section>
 
     <!-- ABOUT ME SECTION -->
-    <section id="about" class="py-20 bg-slate-50 border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="about" class="py-20 relative overflow-hidden bg-slate-50/70 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 
-                <!-- Left Bio Card (Solid White Card) -->
+                <!-- Left Bio Card -->
                 <div class="lg:col-span-5 space-y-6">
-                    <div class="bg-white text-slate-800 rounded-2xl p-8 border border-slate-200 relative overflow-hidden">
-                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2.5 text-slate-900">
-                            <i class="fa-solid fa-circle-info text-indigo-600"></i> Ringkasan Profil
+                    <div class="bg-white dark:bg-slate-900/90 text-slate-800 dark:text-slate-100 rounded-2xl p-8 border border-slate-200 dark:border-slate-800 relative overflow-hidden shadow-sm">
+                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2.5 text-slate-900 dark:text-white">
+                            <i class="fa-solid fa-circle-info text-indigo-600 dark:text-indigo-400"></i> Ringkasan Profil
                         </h3>
-                        <p class="text-slate-600 text-sm leading-relaxed text-justify">
+                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed text-justify">
                             Saya adalah lulusan baru (Fresh Graduate) Ekonomi Syariah dari UIN Siber Syekh Nurjati Cirebon. Saya memiliki keseimbangan kompetensi yang kuat antara analisis teoritis pertumbuhan ekonomi syariah dan keahlian praktis dalam administrasi, operasional, pengetikan presisi, serta manajemen database. 
                         </p>
                         
-                        <div class="mt-6 border-t border-slate-100 pt-6 space-y-4">
+                        <div class="mt-6 border-t border-slate-100 dark:border-slate-800 pt-6 space-y-4">
                             <div class="flex items-start gap-3.5">
-                                <div class="bg-slate-50 p-2.5 rounded-lg text-indigo-600 border border-slate-100">
+                                <div class="bg-slate-50 dark:bg-slate-800 p-2.5 rounded-lg text-indigo-600 dark:text-indigo-400 border border-slate-200/60 dark:border-slate-700">
                                     <i class="fa-solid fa-university text-xs"></i>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Pendidikan Terakhir</p>
-                                    <p class="text-sm font-bold text-slate-800">UIN Siber Syekh Nurjati Cirebon</p>
-                                    <p class="text-xs text-slate-500 font-semibold">Sarjana Ekonomi Syariah (S.E.)</p>
+                                    <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Pendidikan Terakhir</p>
+                                    <p class="text-sm font-bold text-slate-800 dark:text-white">UIN Siber Syekh Nurjati Cirebon</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 font-semibold">Sarjana Ekonomi Syariah (S.E.)</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-3.5">
-                                <div class="bg-slate-50 p-2.5 rounded-lg text-indigo-600 border border-slate-100">
+                                <div class="bg-slate-50 dark:bg-slate-800 p-2.5 rounded-lg text-indigo-600 dark:text-indigo-400 border border-slate-200/60 dark:border-slate-700">
                                     <i class="fa-solid fa-location-dot text-xs"></i>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Domisili Sekarang</p>
-                                    <p class="text-sm font-bold text-slate-800">Cirebon, Jawa Barat</p>
+                                    <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Domisili Sekarang</p>
+                                    <p class="text-sm font-bold text-slate-800 dark:text-white">Cirebon, Jawa Barat</p>
                                 </div>
                             </div>
                         </div>
@@ -281,29 +470,34 @@
                 <!-- Right Detailed Pillars -->
                 <div class="lg:col-span-7 flex flex-col justify-between space-y-6">
                     <div class="space-y-4">
-                        <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Mengapa Memilih Saya?</span>
-                        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 leading-snug">Menyelaraskan Teori Keuangan Dengan Akurasi Administrasi Nyata</h3>
-                        <p class="text-slate-600 text-justify leading-relaxed text-sm">
+                        <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Mengapa Memilih Saya?</span>
+                        <h3 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white leading-snug">Menyelaraskan Teori Keuangan Dengan Akurasi Administrasi Nyata</h3>
+                        <p class="text-slate-600 dark:text-slate-300 text-justify leading-relaxed text-sm">
                             Melalui pengalaman magang di industri ritel yang dinamis dan rekam jejak kepemimpinan tingkat universitas hingga jaringan nasional, saya telah mengasah kemampuan manajemen database, pengolahan dokumen sponsorship, serta koordinasi tim yang kolaboratif.
                         </p>
                     </div>
 
-                    <!-- 3 Core Pillars Cards (Solid Border Flat) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-indigo-600 transition-all-300">
-                            <div class="text-indigo-600 mb-3 text-lg"><i class="fa-solid fa-handshake-simple"></i></div>
-                            <h4 class="font-bold text-slate-800 text-sm mb-1">PR & Kemitraan</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Mengelola proposal sponsorship dan negosiasi eksternal korporat.</p>
+                    <!-- 4 Core Pillars Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-white dark:bg-slate-900/90 p-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
+                            <div class="text-indigo-600 dark:text-indigo-400 mb-3 text-lg"><i class="fa-solid fa-handshake-simple"></i></div>
+                            <h4 class="font-bold text-slate-800 dark:text-white text-sm mb-1">PR & Kemitraan</h4>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Mengelola proposal sponsorship dan negosiasi eksternal korporat.</p>
                         </div>
-                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-indigo-600 transition-all-300">
-                            <div class="text-indigo-600 mb-3 text-lg"><i class="fa-solid fa-file-invoice-dollar"></i></div>
-                            <h4 class="font-bold text-slate-800 text-sm mb-1">Administrasi Retail</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Memproses administrasi pembukaan outlet baru toko ritel secara akurat.</p>
+                        <div class="bg-white dark:bg-slate-900/90 p-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
+                            <div class="text-indigo-600 dark:text-indigo-400 mb-3 text-lg"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+                            <h4 class="font-bold text-slate-800 dark:text-white text-sm mb-1">Administrasi Retail</h4>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Memproses administrasi pembukaan outlet baru toko ritel secara akurat.</p>
                         </div>
-                        <div class="bg-white p-5 rounded-xl border border-slate-200 hover:border-indigo-600 transition-all-300">
-                            <div class="text-indigo-600 mb-3 text-lg"><i class="fa-solid fa-users-gear"></i></div>
-                            <h4 class="font-bold text-slate-800 text-sm mb-1">Leadership Teruji</h4>
-                            <p class="text-slate-500 text-xs leading-relaxed">Dipercaya memimpin organisasi kemahasiswaan tingkat universitas.</p>
+                        <div class="bg-white dark:bg-slate-900/90 p-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
+                            <div class="text-indigo-600 dark:text-indigo-400 mb-3 text-lg"><i class="fa-solid fa-users-gear"></i></div>
+                            <h4 class="font-bold text-slate-800 dark:text-white text-sm mb-1">Leadership Teruji</h4>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Dipercaya memimpin organisasi kemahasiswaan tingkat universitas & regional.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900/90 p-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
+                            <div class="text-indigo-600 dark:text-indigo-400 mb-3 text-lg"><i class="fa-solid fa-certificate"></i></div>
+                            <h4 class="font-bold text-slate-800 dark:text-white text-sm mb-1">Lisensi BNSP & AI</h4>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">Kompetensi Digital Marketing BNSP dan AI Prompting bersertifikat resmi.</p>
                         </div>
                     </div>
                 </div>
@@ -313,107 +507,107 @@
     </section>
 
     <!-- EXPERIENCE SECTION -->
-    <section id="experience" class="py-20 bg-white border-b border-slate-100">
+    <section id="experience" class="py-20 bg-white/70 dark:bg-slate-950/40 border-b border-slate-200/80 dark:border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Riwayat Profesional</span>
-                <h3 class="text-3xl font-bold text-slate-900 mt-1">Magang & Pengalaman Organisasi</h3>
-                <p class="mt-2 text-slate-500 text-sm">Jejak langkah kontribusi saya di dunia kerja profesional serta kepemimpinan organisasi kemahasiswaan.</p>
+                <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Riwayat Profesional</span>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">Magang & Pengalaman Organisasi</h3>
+                <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Jejak langkah kontribusi saya di dunia kerja profesional serta kepemimpinan organisasi kemahasiswaan.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                 
-                <!-- Left: Internship (Magang) (Flat Card) -->
+                <!-- Left: Internship (Magang) -->
                 <div class="lg:col-span-5 space-y-6">
-                    <h4 class="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-2">
-                        <i class="fa-solid fa-briefcase text-indigo-600"></i> Pengalaman Magang
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+                        <i class="fa-solid fa-briefcase text-indigo-600 dark:text-indigo-400"></i> Pengalaman Magang
                     </h4>
                     
-                    <div class="bg-slate-50 border border-slate-200 rounded-2xl p-6 relative">
-                        <span class="absolute top-4 right-4 bg-indigo-50 border border-indigo-100 text-indigo-700 text-[9px] font-bold px-2.5 py-1 rounded">Professional Intern</span>
+                    <div class="bg-slate-50 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 relative shadow-sm">
+                        <span class="absolute top-4 right-4 bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-100 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-[9px] font-bold px-2.5 py-1 rounded">Professional Intern</span>
                         <div class="mb-4">
-                            <h5 class="text-base font-bold text-slate-900">PT Indosari Niaga Nusantara</h5>
-                            <p class="text-xs text-indigo-600 font-semibold mt-0.5">Administrative & Operational Intern</p>
-                            <p class="text-[11px] text-slate-400 mt-1"><i class="fa-regular fa-calendar-days mr-1"></i> Februari 2025 – Juni 2025 (4 Bulan)</p>
+                            <h5 class="text-base font-bold text-slate-900 dark:text-white">PT Indosari Niaga Nusantara</h5>
+                            <p class="text-xs text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5">Administrative & Operational Intern</p>
+                            <p class="text-[11px] text-slate-400 dark:text-slate-500 mt-1"><i class="fa-regular fa-calendar-days mr-1"></i> Februari 2025 – Juni 2025 (4 Bulan)</p>
                         </div>
-                        <ul class="space-y-3 text-slate-600 text-xs">
+                        <ul class="space-y-3 text-slate-600 dark:text-slate-300 text-xs">
                             <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-indigo-600 mt-0.5 flex-shrink-0 text-xs"></i>
+                                <i class="fa-solid fa-check text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0 text-xs"></i>
                                 <span>Mengelola dan memproses administrasi kemitraan komersial serta dokumentasi pengajuan proposal <strong>sponsorship</strong> kepada pihak eksternal.</span>
                             </li>
                             <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-indigo-600 mt-0.5 flex-shrink-0 text-xs"></i>
+                                <i class="fa-solid fa-check text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0 text-xs"></i>
                                 <span>Menangani dan memverifikasi administrasi pembukaan outlet baru (<strong>New Open Outlet</strong> / NOO) toko ritel secara akurat dan terstruktur.</span>
                             </li>
                             <li class="flex items-start gap-2">
-                                <i class="fa-solid fa-check text-indigo-600 mt-0.5 flex-shrink-0 text-xs"></i>
+                                <i class="fa-solid fa-check text-indigo-600 dark:text-indigo-400 mt-0.5 flex-shrink-0 text-xs"></i>
                                 <span>Melakukan entri data operasional, penyusunan laporan harian, serta mendukung efisiensi administratif distribusi produk.</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Right: Organizations (Organisasi) (Flat Card Stacked) -->
+                <!-- Right: Organizations (Organisasi) -->
                 <div class="lg:col-span-7 space-y-6">
-                    <h4 class="text-base font-bold text-slate-900 flex items-center gap-2 border-b border-slate-200 pb-2">
-                        <i class="fa-solid fa-users text-indigo-600"></i> Kepemimpinan & Pengalaman Organisasi
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 pb-2">
+                        <i class="fa-solid fa-users text-indigo-600 dark:text-indigo-400"></i> Kepemimpinan & Pengalaman Organisasi
                     </h4>
 
                     <div class="space-y-4">
                         <!-- IMEIs -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-indigo-600 transition-all-300">
+                        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg border border-slate-100 flex items-center justify-center p-1 bg-slate-50/50 flex-shrink-0">
-                                        <img src="logo_imeis.png" alt="IMEIs Logo" class="w-full h-full object-contain">
+                                    <div class="w-10 h-10 rounded-lg border border-slate-100 dark:border-slate-800 flex items-center justify-center p-1 bg-slate-50/50 dark:bg-slate-800/50 flex-shrink-0">
+                                        <img src="Foto/logo_imeis.png" alt="IMEIs Logo" class="w-full h-full object-contain">
                                     </div>
                                     <div>
-                                        <h5 class="text-sm font-bold text-slate-900">IMEIs (Ikatan Mahasiswa Ekonomi Islam)</h5>
-                                        <p class="text-[11px] text-slate-400"><i class="fa-regular fa-calendar-days mr-1"></i> Periode Keaktifan: 2 Tahun (2024 - 2025)</p>
+                                        <h5 class="text-sm font-bold text-slate-900 dark:text-white">IMEIs (Ikatan Mahasiswa Ekonomi Islam)</h5>
+                                        <p class="text-[11px] text-slate-400 dark:text-slate-500"><i class="fa-regular fa-calendar-days mr-1"></i> Periode Keaktifan: 2 Tahun (2024 - 2025)</p>
                                     </div>
                                 </div>
-                                <span class="bg-indigo-50 text-indigo-700 text-[9px] font-bold px-2.5 py-1 rounded border border-indigo-100 self-start sm:self-center">Struktur Inti</span>
+                                <span class="bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 text-[9px] font-bold px-2.5 py-1 rounded border border-indigo-100 dark:border-indigo-800 self-start sm:self-center">Struktur Inti</span>
                             </div>
-                            <div class="space-y-2 text-xs text-slate-600">
+                            <div class="space-y-2 text-xs text-slate-600 dark:text-slate-300">
                                 <p class="text-justify">
-                                    <strong class="text-slate-800">Periode II (2025) - Ketua Umum:</strong> Memimpin jalannya organisasi secara menyeluruh, mengoordinasikan 5 divisi kerja, serta menjadi representasi utama dalam forum ilmiah dan kemitraan akademis luar kampus.
+                                    <strong class="text-slate-800 dark:text-slate-100">Periode II (2025) - Ketua Umum:</strong> Memimpin jalannya organisasi secara menyeluruh, mengoordinasikan 5 divisi kerja, serta menjadi representasi utama dalam forum ilmiah dan kemitraan akademis luar kampus.
                                 </p>
                                 <p class="text-justify">
-                                    <strong class="text-slate-800">Periode I (2024) - Kepala HRD:</strong> Bertanggung jawab penuh atas manajemen sumber daya pengurus, merancang materi pelatihan internal, meningkatkan engagement anggota, serta memimpin proses rekonsiliasi tim.
+                                    <strong class="text-slate-800 dark:text-slate-100">Periode I (2024) - Kepala HRD:</strong> Bertanggung jawab penuh atas manajemen sumber daya pengurus, merancang materi pelatihan internal, meningkatkan engagement anggota, serta memimpin proses rekonsiliasi tim.
                                 </p>
                             </div>
                         </div>
 
                         <!-- FoSSEI -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-indigo-600 transition-all-300">
+                        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="w-10 h-10 rounded-lg border border-slate-100 flex items-center justify-center p-1 bg-slate-50/50 flex-shrink-0">
-                                        <img src="logo_fossei.png" alt="FoSSEI Logo" class="w-full h-full object-contain">
+                                    <div class="w-10 h-10 rounded-lg border border-slate-100 dark:border-slate-800 flex items-center justify-center p-1 bg-slate-50/50 dark:bg-slate-800/50 flex-shrink-0">
+                                        <img src="Foto/logo_fossei.png" alt="FoSSEI Logo" class="w-full h-full object-contain">
                                     </div>
                                     <div>
-                                        <h5 class="text-sm font-bold text-slate-900">FoSSEI Nasional (Forum Silaturahim Studi Ekonomi Islam)</h5>
-                                        <p class="text-[11px] text-slate-400"><i class="fa-regular fa-calendar-days mr-1"></i> Periode Keaktifan: 2025</p>
+                                        <h5 class="text-sm font-bold text-slate-900 dark:text-white">FoSSEI Nasional (Forum Silaturahim Studi Ekonomi Islam)</h5>
+                                        <p class="text-[11px] text-slate-400 dark:text-slate-500"><i class="fa-regular fa-calendar-days mr-1"></i> Periode Keaktifan: 2025</p>
                                     </div>
                                 </div>
-                                <span class="bg-sky-50 text-sky-700 text-[9px] font-bold px-2.5 py-1 rounded border border-sky-100 self-start sm:self-center">Kepala Divisi</span>
+                                <span class="bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 text-[9px] font-bold px-2.5 py-1 rounded border border-sky-100 dark:border-sky-800 self-start sm:self-center">Kepala Divisi</span>
                             </div>
-                            <p class="text-xs text-slate-600 text-justify">
-                                <strong class="text-slate-800">Kepala Divisi Litbang (Penelitian & Pengembangan):</strong> Bertugas menyusun kurikulum kajian ilmiah kontemporer, mengelola pangkalan data penelitian ekonomi syariah anggota regional, serta menyusun laporan rekomendasi kebijakan literasi keuangan mikro syariah.
+                            <p class="text-xs text-slate-600 dark:text-slate-300 text-justify">
+                                <strong class="text-slate-800 dark:text-slate-100">Kepala Divisi Litbang (Penelitian & Pengembangan):</strong> Bertugas menyusun kurikulum kajian ilmiah kontemporer, mengelola pangkalan data penelitian ekonomi syariah anggota regional, serta menyusun laporan rekomendasi kebijakan literasi keuangan mikro syariah.
                             </p>
                         </div>
 
                         <!-- Senjapreneur -->
-                        <div class="bg-white border border-slate-200 rounded-2xl p-6 hover:border-indigo-600 transition-all-300">
+                        <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 hover:border-indigo-500 dark:hover:border-indigo-400 transition-all-300 shadow-sm">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                                 <div>
-                                    <h5 class="text-sm font-bold text-slate-900">Senjapreneur (Komunitas Wirausaha Mahasiswa)</h5>
-                                    <p class="text-[11px] text-slate-400"><i class="fa-regular fa-calendar-days mr-1"></i> Desember 2023 - Desember 2025 (2 Tahun)</p>
+                                    <h5 class="text-sm font-bold text-slate-900 dark:text-white">Senjapreneur (Komunitas Wirausaha Mahasiswa)</h5>
+                                    <p class="text-[11px] text-slate-400 dark:text-slate-500"><i class="fa-regular fa-calendar-days mr-1"></i> Desember 2023 - Desember 2025 (2 Tahun)</p>
                                 </div>
-                                <span class="bg-amber-50 text-amber-700 text-[9px] font-bold px-2.5 py-1 rounded border border-amber-100 self-start sm:self-center">Public Relations</span>
+                                <span class="bg-amber-50 dark:bg-amber-950/80 text-amber-700 dark:text-amber-300 text-[9px] font-bold px-2.5 py-1 rounded border border-amber-100 dark:border-amber-800 self-start sm:self-center">Public Relations</span>
                             </div>
-                            <p class="text-xs text-slate-600 text-justify">
-                                <strong class="text-slate-800">Staf Public Relations (Hubungan Masyarakat):</strong> Berperan aktif menjembatani relasi antara wirausahawan mahasiswa dengan investor luar, menyusun publikasi produk unggulan, dan menangani strategi komunikasi promosi acara bazar berkala.
+                            <p class="text-xs text-slate-600 dark:text-slate-300 text-justify">
+                                <strong class="text-slate-800 dark:text-slate-100">Staf Public Relations (Hubungan Masyarakat):</strong> Berperan aktif menjembatani relasi antara wirausahawan mahasiswa dengan investor luar, menyusun publikasi produk unggulan, dan menangani strategi komunikasi promosi acara bazar berkala.
                             </p>
                         </div>
                     </div>
@@ -424,90 +618,90 @@
     </section>
 
     <!-- SKILLS SECTION -->
-    <section id="skills" class="py-20 bg-slate-50 border-b border-slate-100">
+    <section id="skills" class="py-20 bg-slate-50/70 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Kompetensi & Tools</span>
-                <h3 class="text-3xl font-bold text-slate-900 mt-1">Kombinasi Hard & Soft Skills</h3>
-                <p class="mt-2 text-slate-500 text-sm">Matriks keterampilan teruji yang saya miliki untuk menunjang produktivitas profesional.</p>
+                <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Kompetensi & Tools</span>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">Kombinasi Hard & Soft Skills</h3>
+                <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Matriks keterampilan teruji yang saya miliki untuk menunjang produktivitas profesional.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- Hard Skills & Tech Suite -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-6">
-                    <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-laptop text-indigo-600"></i> Hard Skills & Tools Suite
+                <div class="bg-white dark:bg-slate-900/90 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-laptop text-indigo-600 dark:text-indigo-400"></i> Hard Skills & Tools Suite
                     </h4>
                     
                     <div class="space-y-5">
                         <!-- Skill 1 -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
                                 <span>Microsoft Office (Excel, Word, PowerPoint)</span>
-                                <span class="text-indigo-600">95%</span>
+                                <span class="text-indigo-600 dark:text-indigo-400 font-bold">95%</span>
                             </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full rounded-full" style="width: 95%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 95%"></div>
                             </div>
                         </div>
                         <!-- Skill 2 -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
                                 <span>Data Entry & Retail Admin (NOO & Sponsorship)</span>
-                                <span class="text-indigo-600">92%</span>
+                                <span class="text-indigo-600 dark:text-indigo-400 font-bold">92%</span>
                             </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full rounded-full" style="width: 92%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 92%"></div>
                             </div>
                         </div>
                         <!-- Skill 3 -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
                                 <span>Analisis Pertumbuhan Ekonomi Syariah</span>
-                                <span class="text-indigo-600">88%</span>
+                                <span class="text-indigo-600 dark:text-indigo-400 font-bold">88%</span>
                             </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full rounded-full" style="width: 88%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 88%"></div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Soft Skills Suite -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200 space-y-6">
-                    <h4 class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        <i class="fa-solid fa-users-viewfinder text-indigo-600"></i> Interpersonal & Soft Skills
+                <div class="bg-white dark:bg-slate-900/90 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
+                    <h4 class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-users-viewfinder text-indigo-600 dark:text-indigo-400"></i> Interpersonal & Soft Skills
                     </h4>
                     
                     <div class="space-y-5">
                         <!-- Skill 1 -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
                                 <span>Komunikasi Publik & Public Relations (Humas)</span>
-                                <span class="text-indigo-600">92%</span>
+                                <span class="text-indigo-600 dark:text-indigo-400 font-bold">92%</span>
                             </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full rounded-full" style="width: 92%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 92%"></div>
                             </div>
                         </div>
                         <!-- Skill 2 -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
                                 <span>Keterbukaan & Kolaborasi Tim (Teamwork)</span>
-                                <span class="text-indigo-600">95%</span>
+                                <span class="text-indigo-600 dark:text-indigo-400 font-bold">95%</span>
                             </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full rounded-full" style="width: 95%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 95%"></div>
                             </div>
                         </div>
                         <!-- Skill 3 -->
                         <div>
-                            <div class="flex justify-between text-xs font-bold text-slate-700 mb-1.5">
+                            <div class="flex justify-between text-xs font-bold text-slate-700 dark:text-slate-200 mb-1.5">
                                 <span>Kepemimpinan Organisasi (Ketua Umum)</span>
-                                <span class="text-indigo-600">90%</span>
+                                <span class="text-indigo-600 dark:text-indigo-400 font-bold">90%</span>
                             </div>
-                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                                <div class="bg-indigo-600 h-full rounded-full" style="width: 90%"></div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                                <div class="bg-indigo-600 dark:bg-indigo-500 h-full rounded-full" style="width: 90%"></div>
                             </div>
                         </div>
                     </div>
@@ -516,47 +710,365 @@
         </div>
     </section>
 
-    <!-- INTERACTIVE HUB SECTION -->
-    <section id="interactive-hub" class="py-20 bg-white border-b border-slate-100">
+    <!-- ACHIEVEMENTS & CERTIFICATIONS SECTION -->
+    <section id="achievements" class="py-20 bg-white/70 dark:bg-slate-950/40 border-b border-slate-200/80 dark:border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Simulasi & Showcase</span>
-                <h3 class="text-3xl font-bold text-slate-900 mt-1">Hub Pembuktian Kompetensi</h3>
-                <p class="mt-2 text-slate-500 text-sm">Uji secara langsung kecakapan data entry, pemodelan spreadsheet Excel, dan desain PowerPoint saya secara interaktif.</p>
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-800 mb-3 shadow-sm">
+                    <i class="fa-solid fa-award text-indigo-600 dark:text-indigo-400"></i> Rekam Jejak Prestasi & Kompetensi
+                </div>
+                <h3 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Prestasi, Sertifikasi & Riset</h3>
+                <p class="mt-3 text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+                    Dokumentasi resmi pencapaian juara kompetisi akademik, lisensi profesi terverifikasi BNSP, keahlian artificial intelligence, serta publikasi jurnal ilmiah terakreditasi.
+                </p>
+
+                <!-- Filter Categories -->
+                <div class="flex flex-wrap justify-center gap-2 mt-8">
+                    <button onclick="filterAchievements('all')" id="filter-btn-all" class="achievement-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all-300 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm">
+                        Semua Capaian (5)
+                    </button>
+                    <button onclick="filterAchievements('kompetisi')" id="filter-btn-kompetisi" class="achievement-filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300">
+                        <i class="fa-solid fa-trophy text-amber-500 mr-1.5"></i> Kompetisi & Juara (2)
+                    </button>
+                    <button onclick="filterAchievements('sertifikasi')" id="filter-btn-sertifikasi" class="achievement-filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300">
+                        <i class="fa-solid fa-certificate text-indigo-500 mr-1.5"></i> Sertifikasi Profesi (2)
+                    </button>
+                    <button onclick="filterAchievements('jurnal')" id="filter-btn-jurnal" class="achievement-filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300">
+                        <i class="fa-solid fa-book-bookmark text-emerald-500 mr-1.5"></i> Publikasi Ilmiah (1)
+                    </button>
+                </div>
             </div>
 
-            <!-- Tab Buttons Container (Minimalist Flat Layout) -->
+            <!-- Achievement Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="achievements-grid">
+                
+                <!-- CARD 1: Juara 1 Olimpiade Ekonomi Islam -->
+                <div class="achievement-item group bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 hover:shadow-xl transition-all-300 flex flex-col overflow-hidden shadow-sm" data-category="kompetisi">
+                    <!-- Card Media Header with Zoom Trigger -->
+                    <div class="relative h-52 bg-slate-100 dark:bg-slate-800 overflow-hidden cursor-pointer" onclick="openCertificateModal('Foto/sertif 1 olim.png', 'Juara 1 Olimpiade Ekonomi Islam (OEI) 2024', 'FoSSEI Regional Jawa Barat & Universitas Islam Bandung', 'Agustus 2024', 'Juara 1 Tingkat Regional / Jawa Barat dalam Temu Ilmiah Regional (TEMILREG) FoSSEI Jabar X Syariah Islamic Fair 2024. Bertema: Optimalisasi pengembangan ekosistem digital, halal value chain, dan green economy demi mewujudkan ekonomi islam berkelanjutan.')">
+                        <img src="Foto/sertif 1 olim.png" alt="Sertifikat Juara 1 Olimpiade Ekonomi Islam" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <span class="px-3 py-1.5 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus text-indigo-600 dark:text-indigo-400"></i> Pratinjau Sertifikat
+                            </span>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-trophy text-xs"></i> Juara 1
+                        </span>
+                        <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm border border-slate-200/50 dark:border-slate-700">
+                            Regional Jawa Barat
+                        </span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                                <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> 10-11 Agustus 2024</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-location-dot mr-1 text-indigo-500"></i> Unisba Bandung</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
+                                Juara 1 Lomba Olimpiade Ekonomi Islam (OEI)
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-justify">
+                                Berhasil meraih Juara 1 pada ajang bergengsi <strong>TEMILREG FoSSEI JABAR X Syariah Islamic Fair 2024</strong> yang diselenggarakan di Universitas Islam Bandung, menguji pemahaman mendalam tentang ekosistem digital syariah, rantai nilai halal, dan ekonomi hijau berkelanjutan.
+                            </p>
+                        </div>
+
+                        <!-- Card Footer / Action -->
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-100 dark:border-indigo-800 px-2.5 py-1 rounded-md">
+                                FoSSEI Jawa Barat
+                            </span>
+                            <button onclick="openCertificateModal('Foto/sertif 1 olim.png', 'Juara 1 Olimpiade Ekonomi Islam (OEI) 2024', 'FoSSEI Regional Jawa Barat & Universitas Islam Bandung', 'Agustus 2024', 'Juara 1 Tingkat Regional / Jawa Barat dalam Temu Ilmiah Regional (TEMILREG) FoSSEI Jabar X Syariah Islamic Fair 2024. Bertema: Optimalisasi pengembangan ekosistem digital, halal value chain, dan green economy demi mewujudkan ekonomi islam berkelanjutan.')" class="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                                Lihat Foto <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2: Juara 1 Lomba Debat Dema Fest -->
+                <div class="achievement-item group bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 hover:shadow-xl transition-all-300 flex flex-col overflow-hidden shadow-sm" data-category="kompetisi">
+                    <!-- Card Media Header -->
+                    <div class="relative h-52 bg-slate-100 dark:bg-slate-800 overflow-hidden cursor-pointer" onclick="openCertificateModal('Foto/Juara 1 Debat Dema U_page-0001.jpg', 'Juara 1 Lomba Debat Dema Fest Vol. 1', 'Dewan Eksekutif Mahasiswa (DEMA) UIN Siber Syekh Nurjati Cirebon', 'November 2024', 'Meraih predikat Juara 1 sebagai delegasi Tim Al-Faruq dalam kompetisi debat Dema Fest Vol. 1 tingkat universitas dengan tema Harmoni Kolaborasi untuk Membangun Sinergi Kreativitas dan Prestasi Tanpa Batas.')">
+                        <img src="Foto/Juara 1 Debat Dema U_page-0001.jpg" alt="Sertifikat Juara 1 Debat Dema Fest" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <span class="px-3 py-1.5 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus text-indigo-600 dark:text-indigo-400"></i> Pratinjau Sertifikat
+                            </span>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-trophy text-xs"></i> Juara 1
+                        </span>
+                        <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm border border-slate-200/50 dark:border-slate-700">
+                            Tim Al-Faruq
+                        </span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                                <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> November 2024</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-shield-halved mr-1 text-indigo-500"></i> No: 397/A/03/Per/...</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
+                                Juara 1 Debat Dema Fest Vol. 1
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-justify">
+                                Memimpin argumentasi kritis dan retorika berbasis data sebagai ketua tim <strong>Tim Al-Faruq</strong> dalam Lomba Debat Dema Fest Vol. 1 UIN Siber Syekh Nurjati Cirebon, membuktikan ketajaman analisis sosial-ekonomi serta daya persuasi tingkat tinggi.
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/80 border border-indigo-100 dark:border-indigo-800 px-2.5 py-1 rounded-md">
+                                DEMA UIN SSC Cirebon
+                            </span>
+                            <button onclick="openCertificateModal('Foto/Juara 1 Debat Dema U_page-0001.jpg', 'Juara 1 Lomba Debat Dema Fest Vol. 1', 'Dewan Eksekutif Mahasiswa (DEMA) UIN Siber Syekh Nurjati Cirebon', 'November 2024', 'Meraih predikat Juara 1 sebagai delegasi Tim Al-Faruq dalam kompetisi debat Dema Fest Vol. 1 tingkat universitas dengan tema Harmoni Kolaborasi untuk Membangun Sinergi Kreativitas dan Prestasi Tanpa Batas.')" class="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                                Lihat Foto <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3: Sertifikasi BNSP Pemasaran Digital -->
+                <div class="achievement-item group bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 hover:shadow-xl transition-all-300 flex flex-col overflow-hidden shadow-sm" data-category="sertifikasi">
+                    <!-- Card Media Header -->
+                    <div class="relative h-52 bg-slate-100 dark:bg-slate-800 overflow-hidden cursor-pointer" onclick="openCertificateModal('Foto/Sertifikat DM_page-0001.jpg', 'Sertifikat Kompetensi Pemasaran Digital (Digital Marketing)', 'Badan Nasional Sertifikasi Profesi (BNSP) & LSP DITEKINDO', '18 November 2024 (Berlaku s/d 2027)', 'Dinyatakan KOMPETEN secara standar nasional oleh BNSP pada skema Pemasaran Digital (Digital Marketing). No. Reg. TIK 2324 01513 2024 / Sertifikat No. 73100 5244 0 0001534 2024.')">
+                        <img src="Foto/Sertifikat DM_page-0001.jpg" alt="Sertifikat Kompetensi BNSP Digital Marketing" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <span class="px-3 py-1.5 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus text-indigo-600 dark:text-indigo-400"></i> Pratinjau Sertifikat
+                            </span>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-stamp text-xs"></i> Lisensi BNSP
+                        </span>
+                        <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm border border-slate-200/50 dark:border-slate-700">
+                            Standar Nasional
+                        </span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                                <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> Nov 2024 – Nov 2027</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-id-badge mr-1 text-indigo-500"></i> Reg: TIK 2324 01513</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
+                                Sertifikat Kompetensi: Pemasaran Digital
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-justify">
+                                Dinyatakan <strong>Kompeten</strong> secara resmi oleh <strong>Badan Nasional Sertifikasi Profesi (BNSP)</strong> melalui Lembaga Sertifikasi Profesi Digital Teknologi Informasi Indonesia (LSP DITEKINDO) dalam perancangan strategi, konversi audiens, dan audit pemasaran digital terpadu.
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-red-700 dark:text-rose-300 bg-red-50 dark:bg-rose-950/80 border border-red-100 dark:border-rose-800 px-2.5 py-1 rounded-md">
+                                BNSP & LSP DITEKINDO
+                            </span>
+                            <button onclick="openCertificateModal('Foto/Sertifikat DM_page-0001.jpg', 'Sertifikat Kompetensi Pemasaran Digital (Digital Marketing)', 'Badan Nasional Sertifikasi Profesi (BNSP) & LSP DITEKINDO', '18 November 2024 (Berlaku s/d 2027)', 'Dinyatakan KOMPETEN secara standar nasional oleh BNSP pada skema Pemasaran Digital (Digital Marketing). No. Reg. TIK 2324 01513 2024 / Sertifikat No. 73100 5244 0 0001534 2024.')" class="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                                Lihat Foto <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 4: Sertifikat AI Prompting BISA AI -->
+                <div class="achievement-item group bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 hover:shadow-xl transition-all-300 flex flex-col overflow-hidden shadow-sm" data-category="sertifikasi">
+                    <!-- Card Media Header -->
+                    <div class="relative h-52 bg-slate-100 dark:bg-slate-800 overflow-hidden cursor-pointer" onclick="openCertificateModal('Foto/sertif A.I_page-0001.jpg', 'Optimalisasi Generative AI: Teknik Prompting & Tools Pendukung', 'BISA AI Academy (LPK & LKP Bisa AI Indonesia)', 'Oktober 2025 (Berlaku s/d 2027)', 'Menyelesaikan program sertifikasi teknik prompting generative AI untuk akselerasi produktivitas kerja, pengolahan otomatisasi data, serta pemodelan sintesis informasi modern. ID Kredensial: 62ae1633-e23a-4dec-98d8-9134a6b3a7c2.')">
+                        <img src="Foto/sertif A.I_page-0001.jpg" alt="Sertifikat Generative AI BISA AI" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <span class="px-3 py-1.5 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus text-indigo-600 dark:text-indigo-400"></i> Pratinjau Sertifikat
+                            </span>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-blue-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-robot text-xs"></i> AI Certified
+                        </span>
+                        <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm border border-slate-200/50 dark:border-slate-700">
+                            LPK Terakreditasi
+                        </span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                                <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> 2025 – 2027</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-code mr-1 text-indigo-500"></i> Generative AI Specialist</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
+                                Optimalisasi Generative AI & Prompt Engineering
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-justify">
+                                Menyelesaikan sertifikasi kompetensi dari <strong>BISA AI Academy</strong> dalam penguasaan <em>Prompt Engineering</em> mutakhir, integrasi AI workflow untuk pemrosesan teks dan data operasional berkecepatan tinggi demi efisiensi bisnis.
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-blue-700 dark:text-sky-300 bg-blue-50 dark:bg-sky-950/80 border border-blue-100 dark:border-sky-800 px-2.5 py-1 rounded-md">
+                                BISA AI Academy
+                            </span>
+                            <button onclick="openCertificateModal('Foto/sertif A.I_page-0001.jpg', 'Optimalisasi Generative AI: Teknik Prompting & Tools Pendukung', 'BISA AI Academy (LPK & LKP Bisa AI Indonesia)', 'Oktober 2025 (Berlaku s/d 2027)', 'Menyelesaikan program sertifikasi teknik prompting generative AI untuk akselerasi produktivitas kerja, pengolahan otomatisasi data, serta pemodelan sintesis informasi modern. ID Kredensial: 62ae1633-e23a-4dec-98d8-9134a6b3a7c2.')" class="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                                Lihat Foto <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 5: Publikasi Jurnal Ilmiah (LOA) -->
+                <div class="achievement-item group bg-white dark:bg-slate-900/90 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-400 hover:shadow-xl transition-all-300 flex flex-col overflow-hidden shadow-sm" data-category="jurnal">
+                    <!-- Card Media Header -->
+                    <div class="relative h-52 bg-slate-100 dark:bg-slate-800 overflow-hidden cursor-pointer" onclick="openCertificateModal('Foto/LOA Publikasi Jurnal_page-0001.jpg', 'Paper Acceptance Letter (LOA) Jurnal Finotec', 'Finotec: Journal of Islamic Finance and Economics', 'Diterbitkan September 2024 (Vol 1, No 2)', 'Manuscript ilmiah dengan judul Korelasi Perubahan Harga Cabai Dengan Tingginya Tingkat Peminat Cabai Di Indonesia resmi diterima dan dipublikasikan pada Finotec Journal of Islamic Finance and Economics (ID NO: 006/P.Finotec/V/2024).')">
+                        <img src="Foto/LOA Publikasi Jurnal_page-0001.jpg" alt="LOA Publikasi Jurnal Finotec" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
+                            <span class="px-3 py-1.5 bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white text-xs font-bold rounded-lg shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                                <i class="fa-solid fa-magnifying-glass-plus text-indigo-600 dark:text-indigo-400"></i> Pratinjau Dokumen
+                            </span>
+                        </div>
+                        <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-md shadow-sm flex items-center gap-1">
+                            <i class="fa-solid fa-book-open text-xs"></i> Accepted Paper
+                        </span>
+                        <span class="absolute top-3 right-3 bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200 text-[10px] font-semibold px-2 py-0.5 rounded shadow-sm border border-slate-200/50 dark:border-slate-700">
+                            Vol. 1 No. 2 (2024)
+                        </span>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500 font-medium">
+                                <span><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> September 2024</span>
+                                <span>•</span>
+                                <span><i class="fa-solid fa-file-pdf mr-1 text-indigo-500"></i> ID: 006/P.Finotec/V/2024</span>
+                            </div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors leading-snug">
+                                Publikasi Ilmiah Jurnal Finotec
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed text-justify">
+                                Naskah riset <em>"Korelasi Perubahan Harga Cabai Dengan Tingginya Tingkat Peminat Cabai Di Indonesia"</em> dinyatakan lolos seleksi dan terbit di <strong>Finotec: Journal of Islamic Finance and Economics</strong>, mendemonstrasikan keahlian analisis komoditas dan daya beli masyarakat.
+                            </p>
+                        </div>
+
+                        <!-- Card Footer -->
+                        <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+                            <span class="text-[11px] font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-100 dark:border-emerald-800 px-2.5 py-1 rounded-md">
+                                Jurnal Ekonomi & Keuangan Islam
+                            </span>
+                            <button onclick="openCertificateModal('Foto/LOA Publikasi Jurnal_page-0001.jpg', 'Paper Acceptance Letter (LOA) Jurnal Finotec', 'Finotec: Journal of Islamic Finance and Economics', 'Diterbitkan September 2024 (Vol 1, No 2)', 'Manuscript ilmiah dengan judul Korelasi Perubahan Harga Cabai Dengan Tingginya Tingkat Peminat Cabai Di Indonesia resmi diterima dan dipublikasikan pada Finotec Journal of Islamic Finance and Economics (ID NO: 006/P.Finotec/V/2024).')" class="text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 flex items-center gap-1 transition-colors">
+                                Lihat Foto <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 6: Interactive Callout Card -->
+                <div class="achievement-item bg-slate-50 dark:bg-slate-900/60 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-6 flex flex-col justify-between space-y-4" data-category="all">
+                    <div class="space-y-3">
+                        <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl font-bold">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white">
+                            Komitmen Pembelajaran Berkelanjutan
+                        </h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed text-justify">
+                            Prestasi dan sertifikasi di atas merupakan bukti nyata dedikasi dan profesionalitas saya dalam menggabungkan keilmuan akademis dengan kebutuhan industri praktis. Siap memperluas wawasan dan berkontribusi langsung pada target tim Anda.
+                        </p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-200 dark:border-slate-800">
+                        <a href="#contact" class="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300">
+                            Ajak Berkolaborasi <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATE LIGHTBOX MODAL -->
+    <div id="certificate-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 hidden transition-all-300">
+        <div id="certificate-modal-box" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto transform scale-95 transition-all duration-300 shadow-2xl flex flex-col">
+            
+            <!-- Modal Header -->
+            <!-- Modal Content (Scrollable Image & Details) -->
+            <div class="overflow-y-auto p-6 space-y-5 flex-1 bg-slate-100/50">
+                <!-- Large Certificate Image Preview -->
+                <div class="bg-white p-2 rounded-xl border border-slate-200 shadow-sm flex items-center justify-center overflow-hidden">
+                    <img id="modal-cert-img" src="" alt="Pratinjau Sertifikat" class="max-h-[60vh] w-auto object-contain rounded-lg shadow-sm">
+                </div>
+
+                <!-- Info description bar -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-2">
+                    <div class="flex items-center justify-between text-xs text-slate-400">
+                        <span class="font-bold uppercase tracking-wider text-[10px] text-slate-500">Detail & Keabsahan:</span>
+                        <span class="font-semibold text-slate-700" id="modal-cert-date"><i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> Tanggal</span>
+                    </div>
+                    <p class="text-xs text-slate-600 leading-relaxed text-justify" id="modal-cert-desc">
+                        Keterangan sertifikat.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="px-6 py-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex justify-end">
+                <button onclick="closeCertificateModal()" class="px-5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-xs font-bold transition-all-300">
+                    Tutup Pratinjau
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- INTERACTIVE HUB SECTION -->
+    <section id="interactive-hub" class="py-20 bg-slate-50/70 dark:bg-slate-900/40 border-b border-slate-200/80 dark:border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Simulasi Interaktif Portofolio</span>
+                <h3 class="text-3xl font-bold text-slate-900 dark:text-white mt-1">Hub Pembuktian Kompetensi</h3>
+                <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Uji secara langsung kecakapan data entry, pemodelan spreadsheet Excel, dan desain PowerPoint saya secara interaktif.</p>
+            </div>
+
+            <!-- Tab Buttons Container -->
             <div class="flex justify-center mb-10">
-                <div class="inline-flex p-1 bg-slate-50 border border-slate-200 rounded-xl gap-2">
-                    <button onclick="switchTab('tab-excel')" id="btn-tab-excel" class="px-5 py-2.5 rounded-lg text-xs font-bold transition-all-300 bg-indigo-600 text-white">
+                <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 rounded-xl gap-2 shadow-sm">
+                    <button onclick="switchTab('tab-excel')" id="btn-tab-excel" class="px-5 py-2.5 rounded-lg text-xs font-bold transition-all-300 bg-indigo-600 text-white shadow-sm">
                         <i class="fa-regular fa-file-excel mr-1 text-sm"></i> Excel Simulator
                     </button>
-                    <button onclick="switchTab('tab-ppt')" id="btn-tab-ppt" class="px-5 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-indigo-600 transition-all-300">
+                    <button onclick="switchTab('tab-ppt')" id="btn-tab-ppt" class="px-5 py-2.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300">
                         <i class="fa-regular fa-file-powerpoint mr-1 text-sm"></i> PPT Slideshow
                     </button>
-                    <button onclick="switchTab('tab-riset')" id="btn-tab-riset" class="px-5 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-indigo-600 transition-all-300">
+                    <button onclick="switchTab('tab-riset')" id="btn-tab-riset" class="px-5 py-2.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300">
                         <i class="fa-regular fa-file-word mr-1 text-sm"></i> Riset Syariah
                     </button>
                 </div>
             </div>
 
-            <!-- TAB CONTENT 1: EXCEL SIMULATOR (Flat Solid Layout) -->
+            <!-- TAB CONTENT 1: EXCEL SIMULATOR -->
             <div id="tab-excel" class="tab-content transition-all-300">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
+                <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                         <div>
-                            <h4 class="text-base font-bold text-slate-900">Simulasi Input & Entri Data Kas Keuangan</h4>
-                            <p class="text-xs text-slate-500">Ubah angka pada kolom "Nominal" untuk melihat kalkulasi rumus Excel dinamis secara instan.</p>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white">Simulasi Input & Entri Data Kas Keuangan</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Ubah angka pada kolom "Nominal" untuk melihat kalkulasi rumus Excel dinamis secara instan.</p>
                         </div>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-md border border-indigo-100">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-md border border-indigo-100 dark:border-indigo-800">
                             Real-time Calculator
                         </span>
                     </div>
 
                     <!-- Interactive Spreadsheet Table -->
-                    <div class="overflow-x-auto border border-slate-200 rounded-xl">
-                        <table class="min-w-full divide-y divide-slate-200 text-left text-xs">
-                            <thead class="bg-slate-50 text-slate-600 font-bold uppercase">
+                    <div class="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm">
+                        <table class="min-w-full divide-y divide-slate-200 dark:divide-slate-800 text-left text-xs">
+                            <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 font-bold uppercase">
                                 <tr>
                                     <th class="px-4 py-3">No</th>
                                     <th class="px-4 py-3">Uraian Transaksi Keuangan Syariah / Retail</th>
@@ -565,52 +1077,52 @@
                                     <th class="px-4 py-3">Nominal (Rupiah)</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-200 text-slate-700 bg-white">
+                            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-900">
                                 <tr>
-                                    <td class="px-4 py-3 font-mono text-slate-400">1</td>
-                                    <td class="px-4 py-3 font-semibold text-slate-800">Bagi Hasil Pembiayaan Mudharabah Digital</td>
-                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 font-semibold">Kredit (Masuk)</span></td>
-                                    <td class="px-4 py-3 font-medium text-slate-500">Kemitraan UMKM</td>
+                                    <td class="px-4 py-3 font-mono text-slate-400 dark:text-slate-500">1</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">Bagi Hasil Pembiayaan Mudharabah Digital</td>
+                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-100 dark:border-emerald-800">Kredit (Masuk)</span></td>
+                                    <td class="px-4 py-3 font-medium text-slate-500 dark:text-slate-400">Kemitraan UMKM</td>
                                     <td class="px-4 py-3">
-                                        <input type="number" id="input-val-1" value="12500000" oninput="calculateExcel()" class="w-full bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 text-xs font-bold text-slate-800">
+                                        <input type="number" id="input-val-1" value="12500000" oninput="calculateExcel()" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 text-xs font-bold text-slate-800 dark:text-slate-100">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-mono text-slate-400">2</td>
-                                    <td class="px-4 py-3 font-semibold text-slate-800">Alokasi Kas Kemitraan Sponsorship Organisasi</td>
-                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-800 font-semibold">Kredit (Masuk)</span></td>
-                                    <td class="px-4 py-3 font-medium text-slate-500">Sponsor Perusahaan</td>
+                                    <td class="px-4 py-3 font-mono text-slate-400 dark:text-slate-500">2</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">Alokasi Kas Kemitraan Sponsorship Organisasi</td>
+                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 font-semibold border border-emerald-100 dark:border-emerald-800">Kredit (Masuk)</span></td>
+                                    <td class="px-4 py-3 font-medium text-slate-500 dark:text-slate-400">Sponsor Perusahaan</td>
                                     <td class="px-4 py-3">
-                                        <input type="number" id="input-val-2" value="4500000" oninput="calculateExcel()" class="w-full bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 text-xs font-bold text-slate-800">
+                                        <input type="number" id="input-val-2" value="4500000" oninput="calculateExcel()" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 text-xs font-bold text-slate-800 dark:text-slate-100">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-mono text-slate-400">3</td>
-                                    <td class="px-4 py-3 font-semibold text-slate-800">Penyaluran Zakat Produktif Sektor Riil</td>
-                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-rose-50 text-rose-800 font-semibold">Debet (Keluar)</span></td>
-                                    <td class="px-4 py-3 font-medium text-slate-500">Kas ZISWAF</td>
+                                    <td class="px-4 py-3 font-mono text-slate-400 dark:text-slate-500">3</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">Penyaluran Zakat Produktif Sektor Riil</td>
+                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-950 text-rose-800 dark:text-rose-300 font-semibold border border-rose-100 dark:border-rose-800">Debet (Keluar)</span></td>
+                                    <td class="px-4 py-3 font-medium text-slate-500 dark:text-slate-400">Kas ZISWAF</td>
                                     <td class="px-4 py-3">
-                                        <input type="number" id="input-val-3" value="8500000" oninput="calculateExcel()" class="w-full bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 text-xs font-bold text-slate-800">
+                                        <input type="number" id="input-val-3" value="8500000" oninput="calculateExcel()" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 text-xs font-bold text-slate-800 dark:text-slate-100">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-3 font-mono text-slate-400">4</td>
-                                    <td class="px-4 py-3 font-semibold text-slate-800">Biaya Administrasi & Registrasi NOO Toko</td>
-                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-rose-50 text-rose-800 font-semibold">Debet (Keluar)</span></td>
-                                    <td class="px-4 py-3 font-medium text-slate-500">Operasional Ritel</td>
+                                    <td class="px-4 py-3 font-mono text-slate-400 dark:text-slate-500">4</td>
+                                    <td class="px-4 py-3 font-semibold text-slate-800 dark:text-slate-100">Biaya Administrasi & Registrasi NOO Toko</td>
+                                    <td class="px-4 py-3"><span class="px-2 py-0.5 rounded bg-rose-50 dark:bg-rose-950 text-rose-800 dark:text-rose-300 font-semibold border border-rose-100 dark:border-rose-800">Debet (Keluar)</span></td>
+                                    <td class="px-4 py-3 font-medium text-slate-500 dark:text-slate-400">Operasional Ritel</td>
                                     <td class="px-4 py-3">
-                                        <input type="number" id="input-val-4" value="5000000" oninput="calculateExcel()" class="w-full bg-slate-50 border border-slate-200 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 text-xs font-bold text-slate-800">
+                                        <input type="number" id="input-val-4" value="5000000" oninput="calculateExcel()" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded px-2.5 py-1.5 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 text-xs font-bold text-slate-800 dark:text-slate-100">
                                     </td>
                                 </tr>
                             </tbody>
-                            <tfoot class="bg-slate-50 font-bold text-slate-800">
+                            <tfoot class="bg-slate-50 dark:bg-slate-800/80 font-bold text-slate-800 dark:text-slate-100">
                                 <tr>
                                     <td colspan="4" class="px-4 py-3.5 text-right">SUM (Total Nominal Transaksi):</td>
-                                    <td class="px-4 py-3.5 text-indigo-600 font-bold" id="excel-total">Rp 30.500.000</td>
+                                    <td class="px-4 py-3.5 text-indigo-600 dark:text-indigo-400 font-bold" id="excel-total">Rp 30.500.000</td>
                                 </tr>
                                 <tr>
                                     <td colspan="4" class="px-4 py-3.5 text-right">AVERAGE (Rata-rata):</td>
-                                    <td class="px-4 py-3.5 text-slate-600 font-bold" id="excel-average">Rp 7.625.000</td>
+                                    <td class="px-4 py-3.5 text-slate-600 dark:text-slate-300 font-bold" id="excel-average">Rp 7.625.000</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -618,72 +1130,92 @@
                 </div>
             </div>
 
-            <!-- TAB CONTENT 2: PPT PRESENTATION VIEW (Flat Light/Slate Screen) -->
+            <!-- TAB CONTENT 2: PPT PRESENTATION VIEW (Dynamic Animated Slide Canvas) -->
             <div id="tab-ppt" class="tab-content hidden transition-all-300">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
-                    <div>
-                        <h4 class="text-base font-bold text-slate-900">Slide Deck Presentasi Interaktif</h4>
-                        <p class="text-xs text-slate-500">Mempresentasikan gagasan pertumbuhan ekonomi syariah dengan visual bersih dan materi infografis yang berbobot.</p>
+                <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white">Slide Deck Presentasi Interaktif</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Mempresentasikan gagasan pertumbuhan ekonomi syariah dengan visual bersih dan materi infografis yang berbobot.</p>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 text-xs font-semibold rounded-md border border-indigo-100 dark:border-indigo-800 self-start sm:self-center">
+                            <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span> Animasi Transisi
+                        </span>
                     </div>
 
-                    <!-- Slide Canvas Area (Flat Gray/Indigo Slate Background, No Gradient) -->
-                    <div class="relative w-full aspect-[16/9] max-w-3xl mx-auto rounded-xl bg-slate-900 text-white p-6 sm:p-12 flex flex-col justify-between overflow-hidden border border-slate-800 shadow-sm">
+                    <!-- Slide Canvas Area with Ambient Backlight Glow -->
+                    <div class="relative w-full aspect-[16/9] max-w-3xl mx-auto rounded-2xl bg-slate-950 text-white p-6 sm:p-12 flex flex-col justify-between overflow-hidden border border-slate-800 shadow-2xl group">
+                        
+                        <!-- Top Ambient Neon Line -->
+                        <div class="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-indigo-500 to-transparent"></div>
+
                         <!-- Top Bar Decor -->
-                        <div class="flex justify-between items-center text-[10px] text-slate-400 border-b border-slate-800 pb-3">
-                            <span class="font-bold tracking-wider uppercase">SISTEM EKONOMI SYARIAH</span>
-                            <span id="slide-num">SLIDE 1 dari 3</span>
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 border-b border-slate-800/80 pb-3">
+                            <span class="font-bold tracking-wider uppercase flex items-center gap-1.5 text-indigo-400">
+                                <i class="fa-solid fa-chart-pie"></i> SISTEM EKONOMI SYARIAH
+                            </span>
+                            <span id="slide-num" class="bg-slate-900 px-2 py-0.5 rounded border border-slate-800 text-slate-300 font-mono">SLIDE 1 dari 3</span>
                         </div>
 
-                        <!-- Dynamic Slide Content Area -->
-                        <div id="slide-box" class="my-auto space-y-4">
-                            <!-- Content loaded dynamically via JS -->
+                        <!-- Dynamic Slide Content Area (Animates on slide switch) -->
+                        <div id="slide-container" class="my-auto space-y-4 overflow-hidden py-2">
+                            <div id="slide-box" class="space-y-4">
+                                <!-- Content loaded dynamically via JS -->
+                            </div>
                         </div>
 
-                        <!-- Navigation Buttons -->
-                        <div class="flex justify-between items-center border-t border-slate-800 pt-3 mt-3">
-                            <button onclick="prevSlide()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded text-[11px] font-semibold transition-all-300">
-                                <i class="fa-solid fa-chevron-left mr-1"></i> Sebelumnya
+                        <!-- Bottom Navigation & Dots Indicator -->
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800/80 pt-3 mt-3">
+                            <!-- Prev button -->
+                            <button onclick="prevSlide()" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-lg text-[11px] font-semibold border border-slate-800 hover:border-slate-700 transition-all-300 flex items-center gap-1.5 shadow-sm">
+                                <i class="fa-solid fa-chevron-left text-[10px]"></i> Sebelumnya
                             </button>
-                            <span class="text-[9px] text-slate-500 font-medium">Niqa' F. Rohman | PowerPoint Portfolio</span>
-                            <button onclick="nextSlide()" class="px-3 py-1.5 bg-white hover:bg-slate-100 text-slate-900 rounded text-[11px] font-bold transition-all-300">
-                                Selanjutnya <i class="fa-solid fa-chevron-right ml-1"></i>
+                            
+                            <!-- Interactive Slide Dots Indicator -->
+                            <div class="flex items-center gap-2" id="slide-dots">
+                                <!-- Generated by JS -->
+                            </div>
+
+                            <!-- Next button -->
+                            <button onclick="nextSlide()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-[11px] font-bold transition-all-300 flex items-center gap-1.5 shadow-md hover:shadow-indigo-500/30">
+                                Selanjutnya <i class="fa-solid fa-chevron-right text-[10px]"></i>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB CONTENT 3: RESEARCH ABSTRACT SELECTOR (Minimal Split View) -->
+            <!-- TAB CONTENT 3: RESEARCH ABSTRACT SELECTOR -->
             <div id="tab-riset" class="tab-content hidden transition-all-300">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
+                <div class="bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
                     <div>
-                        <h4 class="text-base font-bold text-slate-900">Analisis Pertumbuhan & Pengembangan Syariah</h4>
-                        <p class="text-xs text-slate-500">Visualisasi gagasan riset akademis selama masa perkuliahan di UIN Siber Syekh Nurjati Cirebon.</p>
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white">Analisis Pertumbuhan & Pengembangan Syariah</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Visualisasi gagasan riset akademis selama masa perkuliahan di UIN Siber Syekh Nurjati Cirebon.</p>
                     </div>
 
                     <!-- Mini PDF/Report Viewer Mockup -->
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <div class="md:col-span-8 bg-slate-50 border border-slate-200 rounded-xl p-6 max-h-[350px] overflow-y-auto space-y-4">
-                            <h5 class="font-bold text-slate-900 text-base leading-snug border-b border-slate-200 pb-3" id="research-title">
+                        <div class="md:col-span-8 bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 rounded-xl p-6 max-h-[350px] overflow-y-auto space-y-4 shadow-sm">
+                            <h5 class="font-bold text-slate-900 dark:text-white text-base leading-snug border-b border-slate-200 dark:border-slate-700/80 pb-3" id="research-title">
                                 Potensi Fintech Syariah dalam Mengakselerasi Pertumbuhan UMKM Sektor Riil Cirebon
                             </h5>
-                            <p class="text-[10px] font-bold text-indigo-600" id="research-meta">UIN Siber Syekh Nurjati Cirebon - 2026</p>
-                            <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Abstrak Penelitian:</p>
-                            <p class="text-slate-600 text-xs sm:text-sm text-justify leading-relaxed" id="research-abstract">
+                            <p class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400" id="research-meta">UIN Siber Syekh Nurjati Cirebon - 2026</p>
+                            <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Abstrak Penelitian:</p>
+                            <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm text-justify leading-relaxed" id="research-abstract">
                                 Penelitian ini menganalisis implikasi kehadiran financial technology (fintech) syariah terhadap ketersediaan likuiditas pembiayaan modal kerja bagi pelaku UMKM di wilayah Cirebon. Metode penelitian kualitatif deskriptif digunakan untuk merangkum kendala utama literasi keuangan syariah lokal serta membuktikan peningkatan omset usaha setelah integrasi skema bagi hasil Mudharabah digital.
                             </p>
                         </div>
                         
-                        <!-- Side Control Selectors (Flat Solid Buttons) -->
+                        <!-- Side Control Selectors -->
                         <div class="md:col-span-4 space-y-2">
-                            <h6 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Pilih Topik Paper:</h6>
-                            <button onclick="loadResearch(1)" id="r-btn-1" class="w-full text-left p-3.5 rounded-xl border border-indigo-600 bg-indigo-50/50 text-slate-800 font-bold text-xs transition-all-300">
-                                <i class="fa-solid fa-file-invoice-dollar mr-2 text-indigo-600"></i> Fintech Syariah & UMKM Cirebon
+                            <h6 class="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">Pilih Topik Paper:</h6>
+                            <button onclick="loadResearch(1)" id="r-btn-1" class="w-full text-left p-3.5 rounded-xl border border-indigo-600 dark:border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/50 text-slate-800 dark:text-white font-bold text-xs transition-all-300 shadow-sm">
+                                <i class="fa-solid fa-file-invoice-dollar mr-2 text-indigo-600 dark:text-indigo-400"></i> Fintech Syariah & UMKM Cirebon
                             </button>
-                            <button onclick="loadResearch(2)" id="r-btn-2" class="w-full text-left p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-600 text-slate-600 font-semibold text-xs transition-all-300">
+                            <button onclick="loadResearch(2)" id="r-btn-2" class="w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-600 dark:hover:border-indigo-400 text-slate-600 dark:text-slate-300 font-semibold text-xs transition-all-300">
                                 <i class="fa-solid fa-scale-balanced mr-2"></i> Kesiapan Regulasi ZISWAF Era Siber
                             </button>
-                            <button onclick="loadResearch(3)" id="r-btn-3" class="w-full text-left p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-600 text-slate-600 font-semibold text-xs transition-all-300">
+                            <button onclick="loadResearch(3)" id="r-btn-3" class="w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-600 dark:hover:border-indigo-400 text-slate-600 dark:text-slate-300 font-semibold text-xs transition-all-300">
                                 <i class="fa-solid fa-chart-pie mr-2"></i> Strategi Sukuk Ritel untuk Milenial
                             </button>
                         </div>
@@ -695,79 +1227,79 @@
     </section>
 
     <!-- CONTACT SECTION -->
-    <section id="contact" class="py-20 bg-white border-b border-slate-100">
+    <section id="contact" class="py-20 bg-white/70 dark:bg-slate-950/40 border-b border-slate-200/80 dark:border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                 
                 <!-- Info Section -->
                 <div class="lg:col-span-5 space-y-6">
-                    <span class="text-xs font-bold tracking-widest text-indigo-600 uppercase">Saluran Komunikasi</span>
-                    <h3 class="text-3xl font-bold text-slate-900">Hubungi Saya Kapan Saja</h3>
-                    <p class="text-slate-600 text-justify text-sm leading-relaxed">
+                    <span class="text-xs font-bold tracking-widest text-indigo-600 dark:text-indigo-400 uppercase">Saluran Komunikasi</span>
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">Hubungi Saya Kapan Saja</h3>
+                    <p class="text-slate-600 dark:text-slate-300 text-justify text-sm leading-relaxed">
                         Saya sangat terbuka untuk peluang kerja, magang, maupun proyek profesional bidang data, administrasi retail, dan analisis keuangan syariah. Kirim pesan Anda sekarang dan mari diskusikan bagaimana saya dapat berkontribusi positif di perusahaan Anda.
                     </p>
 
                     <div class="space-y-4 pt-4">
                         <div class="flex items-start gap-4">
-                            <span class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 text-indigo-600 text-base">
+                            <span class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-indigo-600 dark:text-indigo-400 text-base shadow-sm">
                                 <i class="fa-regular fa-envelope"></i>
                             </span>
                             <div>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Email Resmi</p>
-                                <a href="mailto:rohmanniqo@gmail.com" class="text-slate-800 font-bold hover:text-indigo-600 text-sm">rohmanniqo@gmail.com</a>
+                                <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Email Resmi</p>
+                                <a href="mailto:rohmanniqo@gmail.com" class="text-slate-800 dark:text-white font-bold hover:text-indigo-600 dark:hover:text-indigo-400 text-sm transition-colors">rohmanniqo@gmail.com</a>
                             </div>
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <span class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 text-indigo-600 text-base">
+                            <span class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-emerald-600 dark:text-emerald-400 text-base shadow-sm">
                                 <i class="fa-brands fa-whatsapp"></i>
                             </span>
                             <div>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Nomor HP / WhatsApp</p>
-                                <a href="tel:087815704674" class="text-slate-800 font-bold hover:text-indigo-600 text-sm">087815704674</a>
+                                <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">Nomor HP / WhatsApp</p>
+                                <a href="tel:087815704674" class="text-slate-800 dark:text-white font-bold hover:text-indigo-600 dark:hover:text-indigo-400 text-sm transition-colors">087815704674</a>
                             </div>
                         </div>
 
                         <div class="flex items-start gap-4">
-                            <span class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 border border-slate-200 text-indigo-600 text-base">
+                            <span class="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sky-600 dark:text-sky-400 text-base shadow-sm">
                                 <i class="fa-brands fa-linkedin-in"></i>
                             </span>
                             <div>
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">LinkedIn Profesional</p>
-                                <a href="https://www.linkedin.com/in/niqa/" target="_blank" class="text-slate-800 font-bold hover:text-indigo-600 text-sm">linkedin.com/in/niqa/</a>
+                                <p class="text-[9px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider">LinkedIn Profesional</p>
+                                <a href="https://www.linkedin.com/in/niqa/" target="_blank" class="text-slate-800 dark:text-white font-bold hover:text-indigo-600 dark:hover:text-indigo-400 text-sm transition-colors">linkedin.com/in/niqa/</a>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Form Section -->
-                <div class="lg:col-span-7 bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8">
+                <div class="lg:col-span-7 bg-slate-50 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm">
                     <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-4">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
-                                <label for="form-name" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Nama Lengkap</label>
-                                <input type="text" id="form-name" required class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-600 transition-all-300">
+                                <label for="form-name" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap</label>
+                                <input type="text" id="form-name" required class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 transition-all-300">
                             </div>
                             <div>
-                                <label for="form-email" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Alamat Email</label>
-                                <input type="email" id="form-email" required class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-600 transition-all-300">
+                                <label for="form-email" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Alamat Email</label>
+                                <input type="email" id="form-email" required class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 transition-all-300">
                             </div>
                         </div>
                         <div>
-                            <label for="form-subject" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Subjek Pesan</label>
-                            <input type="text" id="form-subject" required class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-600 transition-all-300">
+                            <label for="form-subject" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Subjek Pesan</label>
+                            <input type="text" id="form-subject" required class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 transition-all-300">
                         </div>
                         <div>
-                            <label for="form-message" class="block text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-1">Isi Pesan Anda</label>
-                            <textarea id="form-message" rows="4" required class="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-800 focus:outline-none focus:border-indigo-600 transition-all-300"></textarea>
+                            <label for="form-message" class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-1">Isi Pesan Anda</label>
+                            <textarea id="form-message" rows="4" required class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-slate-100 focus:outline-none focus:border-indigo-600 dark:focus:border-indigo-400 transition-all-300"></textarea>
                         </div>
                         
-                        <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition-all-300">
+                        <button type="submit" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition-all-300 shadow-md hover:shadow-indigo-500/25">
                             Kirim Pesan Sekarang <i class="fa-regular fa-paper-plane ml-1"></i>
                         </button>
                     </form>
 
-                    <!-- Success Message Box (No alerts, Flat style) -->
+                    <!-- Success Message Box -->
                     <div id="form-status-box" class="hidden mt-4 p-4 rounded-xl text-xs font-semibold border">
                         <p id="form-status-text"></p>
                     </div>
@@ -778,10 +1310,10 @@
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+    <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h4 class="text-white font-bold text-base">Niqa' Fadhlur Rohman</h4>
-            <p class="text-xs max-w-lg mx-auto leading-relaxed">
+            <h4 class="text-white font-bold text-base tracking-wide">Niqa' Fadhlur Rohman</h4>
+            <p class="text-xs max-w-lg mx-auto leading-relaxed text-slate-400">
                 Menyajikan pengelolaan data administrasi yang akurat, kehumasan yang responsif, serta kontribusi profesional berkualitas tinggi.
             </p>
             <div class="flex justify-center gap-6 text-base">
@@ -789,7 +1321,7 @@
                 <a href="https://www.linkedin.com/in/niqa/" target="_blank" class="hover:text-white transition-all-300" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="tel:087815704674" class="hover:text-white transition-all-300" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
-            <div class="border-t border-slate-800 pt-6 text-[10px] text-slate-500">
+            <div class="border-t border-slate-800/80 pt-6 text-[10px] text-slate-500">
                 &copy; 2026 Niqa' Fadhlur Rohman. All Rights Reserved. | Dibuat dengan presisi tinggi.
             </div>
         </div>
@@ -805,7 +1337,45 @@
             mobileMenu.classList.toggle('hidden');
         });
 
-        // TAB SWITCHER LOGIC (Minimalist buttons class swap)
+        // THEME TOGGLE LOGIC (Dark / Light Mode)
+        function updateThemeIcons() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const darkIcon = document.getElementById('theme-toggle-dark-icon');
+            const lightIcon = document.getElementById('theme-toggle-light-icon');
+            const mobDarkIcon = document.getElementById('theme-toggle-mobile-dark-icon');
+            const mobLightIcon = document.getElementById('theme-toggle-mobile-light-icon');
+            const sliderDesktop = document.getElementById('theme-toggle-slider');
+            const sliderMobile = document.getElementById('theme-toggle-slider-mobile');
+
+            if (isDark) {
+                if (darkIcon) darkIcon.classList.add('hidden');
+                if (lightIcon) lightIcon.classList.remove('hidden');
+                if (mobDarkIcon) mobDarkIcon.classList.add('hidden');
+                if (mobLightIcon) mobLightIcon.classList.remove('hidden');
+                if (sliderDesktop) sliderDesktop.style.transform = 'translateX(28px)';
+                if (sliderMobile) sliderMobile.style.transform = 'translateX(28px)';
+            } else {
+                if (lightIcon) lightIcon.classList.add('hidden');
+                if (darkIcon) darkIcon.classList.remove('hidden');
+                if (mobLightIcon) mobLightIcon.classList.add('hidden');
+                if (mobDarkIcon) mobDarkIcon.classList.remove('hidden');
+                if (sliderDesktop) sliderDesktop.style.transform = 'translateX(0)';
+                if (sliderMobile) sliderMobile.style.transform = 'translateX(0)';
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+            updateThemeIcons();
+        }
+
+        // TAB SWITCHER LOGIC
         function switchTab(tabId) {
             // Hide all tabs
             document.querySelectorAll('.tab-content').forEach(tab => {
@@ -814,7 +1384,6 @@
             // Show selected tab
             document.getElementById(tabId).classList.remove('hidden');
 
-            // Reset buttons to minimalist clean secondary styles
             const buttons = [
                 { id: 'btn-tab-excel' },
                 { id: 'btn-tab-ppt' },
@@ -823,12 +1392,11 @@
 
             buttons.forEach(btn => {
                 const element = document.getElementById(btn.id);
-                element.className = "px-5 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-indigo-600 transition-all-300";
+                element.className = "px-5 py-2.5 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300";
             });
 
-            // Set active button to minimalist flat primary style
             const activeBtn = document.getElementById('btn-' + tabId);
-            activeBtn.className = "px-5 py-2.5 rounded-lg text-xs font-bold transition-all-300 bg-indigo-600 text-white";
+            activeBtn.className = "px-5 py-2.5 rounded-lg text-xs font-bold transition-all-300 bg-indigo-600 text-white shadow-sm";
         }
 
         // EXCEL SIMULATOR CALCULATIONS
@@ -849,7 +1417,7 @@
             document.getElementById('excel-average').innerText = formatCurrency(average);
         }
 
-        // PPT PRESENTATION SLIDESHOW DATA (Clean Flat style)
+        // PPT PRESENTATION SLIDESHOW DATA (with Entry/Exit Animations)
         const slides = [
             {
                 title: "Pertumbuhan & Pengembangan Ekonomi Syariah Siber",
@@ -878,8 +1446,23 @@
         ];
 
         let currentSlideIdx = 0;
+        let isSlideAnimating = false;
 
-        function renderSlide() {
+        function updateSlideDots() {
+            const dotsContainer = document.getElementById('slide-dots');
+            if (!dotsContainer) return;
+            let html = '';
+            for (let i = 0; i < slides.length; i++) {
+                if (i === currentSlideIdx) {
+                    html += `<button onclick="goToSlide(${i})" class="w-6 h-2 rounded-full bg-indigo-500 transition-all duration-300 shadow-sm" aria-label="Slide ${i+1}"></button>`;
+                } else {
+                    html += `<button onclick="goToSlide(${i})" class="w-2 h-2 rounded-full bg-slate-700 hover:bg-slate-500 transition-all duration-300" aria-label="Slide ${i+1}"></button>`;
+                }
+            }
+            dotsContainer.innerHTML = html;
+        }
+
+        function renderSlideContent() {
             const slide = slides[currentSlideIdx];
             const slideBox = document.getElementById('slide-box');
             document.getElementById('slide-num').innerText = `SLIDE ${currentSlideIdx + 1} dari ${slides.length}`;
@@ -888,7 +1471,7 @@
             slide.points.forEach(p => {
                 bulletsHtml += `
                     <li class="flex items-start gap-2.5">
-                        <i class="fa-solid fa-check text-indigo-400 mt-1 flex-shrink-0 text-xs"></i>
+                        <i class="fa-solid fa-circle-check text-indigo-400 mt-1 flex-shrink-0 text-xs"></i>
                         <span class="text-xs sm:text-sm text-slate-300 leading-relaxed">${p}</span>
                     </li>
                 `;
@@ -896,19 +1479,55 @@
             bulletsHtml += `</ul>`;
 
             slideBox.innerHTML = `
-                <h4 class="text-lg sm:text-xl font-bold text-white tracking-tight border-l-2 border-indigo-500 pl-3.5">${slide.title}</h4>
+                <h4 class="text-lg sm:text-xl font-bold text-white tracking-tight border-l-4 border-indigo-500 pl-3.5 leading-snug">${slide.title}</h4>
                 ${bulletsHtml}
             `;
+            updateSlideDots();
+        }
+
+        function renderSlideWithAnimation(direction = 'next') {
+            if (isSlideAnimating) return;
+            isSlideAnimating = true;
+
+            const slideBox = document.getElementById('slide-box');
+            const exitClass = direction === 'next' ? 'slide-out-left' : 'slide-out-right';
+            const enterClass = direction === 'next' ? 'slide-in-right' : 'slide-in-left';
+
+            // 1. Exit animation
+            slideBox.classList.remove('slide-in-right', 'slide-in-left');
+            slideBox.classList.add(exitClass);
+
+            setTimeout(() => {
+                // 2. Render new slide data
+                renderSlideContent();
+                slideBox.classList.remove(exitClass);
+                // 3. Enter animation
+                slideBox.classList.add(enterClass);
+
+                setTimeout(() => {
+                    slideBox.classList.remove(enterClass);
+                    isSlideAnimating = false;
+                }, 360);
+            }, 240);
         }
 
         function nextSlide() {
+            if (isSlideAnimating) return;
             currentSlideIdx = (currentSlideIdx + 1) % slides.length;
-            renderSlide();
+            renderSlideWithAnimation('next');
         }
 
         function prevSlide() {
+            if (isSlideAnimating) return;
             currentSlideIdx = (currentSlideIdx - 1 + slides.length) % slides.length;
-            renderSlide();
+            renderSlideWithAnimation('prev');
+        }
+
+        function goToSlide(index) {
+            if (isSlideAnimating || index === currentSlideIdx) return;
+            const direction = index > currentSlideIdx ? 'next' : 'prev';
+            currentSlideIdx = index;
+            renderSlideWithAnimation(direction);
         }
 
         // RESEARCH TOPICS SELECTOR DATA
@@ -938,14 +1557,14 @@
 
             for (let i = 1; i <= 3; i++) {
                 const btn = document.getElementById('r-btn-' + i);
-                btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-200 bg-white hover:border-indigo-600 text-slate-600 font-semibold text-xs transition-all-300";
+                btn.className = "w-full text-left p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-indigo-600 dark:hover:border-indigo-400 text-slate-600 dark:text-slate-300 font-semibold text-xs transition-all-300";
             }
 
             const activeBtn = document.getElementById('r-btn-' + id);
-            activeBtn.className = "w-full text-left p-3.5 rounded-xl border border-indigo-600 bg-indigo-50/50 text-slate-800 font-bold text-xs transition-all-300 shadow-sm";
+            activeBtn.className = "w-full text-left p-3.5 rounded-xl border border-indigo-600 dark:border-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/50 text-slate-800 dark:text-white font-bold text-xs transition-all-300 shadow-sm";
         }
 
-        // CONTACT FORM SIMULATOR SUBMIT HANDLER (Clean design success block)
+        // CONTACT FORM SIMULATOR SUBMIT HANDLER
         function handleContactSubmit(event) {
             event.preventDefault();
 
@@ -955,16 +1574,115 @@
             const statusBox = document.getElementById('form-status-box');
             const statusText = document.getElementById('form-status-text');
 
-            statusBox.className = "mt-4 p-4 rounded-xl text-xs font-semibold border bg-emerald-50 text-emerald-800 border-emerald-200";
+            statusBox.className = "mt-4 p-4 rounded-xl text-xs font-semibold border bg-emerald-50 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800";
             statusText.innerHTML = `Terima kasih <strong>${name}</strong>! Pesan simulasi Anda tentang "<strong>${subject}</strong>" telah sukses dikirimkan ke kotak masuk Niqa' Fadhlur Rohman. Kami akan segera menghubungi Anda melalui kontak yang tertera.`;
             statusBox.classList.remove('hidden');
 
             document.getElementById('contact-form').reset();
         }
 
+        // ACHIEVEMENTS CATEGORY FILTERING LOGIC
+        function filterAchievements(category) {
+            const items = document.querySelectorAll('.achievement-item');
+            const buttons = document.querySelectorAll('.achievement-filter-btn');
+
+            // Reset buttons styles
+            buttons.forEach(btn => {
+                btn.className = "achievement-filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-600 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all-300";
+            });
+
+            // Set active button
+            const activeBtn = document.getElementById('filter-btn-' + category);
+            if (activeBtn) {
+                activeBtn.className = "achievement-filter-btn active px-4 py-2 rounded-xl text-xs font-bold transition-all-300 bg-indigo-600 hover:bg-indigo-700 text-white shadow-sm";
+            }
+
+            // Filter items with smooth fade effect
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (category === 'all' || itemCategory === category || itemCategory === 'all') {
+                    item.classList.remove('hidden');
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                    }, 50);
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // CERTIFICATE LIGHTBOX MODAL LOGIC
+        function openCertificateModal(imgSrc, title, issuer, date, description) {
+            const modal = document.getElementById('certificate-modal');
+            const modalBox = document.getElementById('certificate-modal-box');
+            
+            document.getElementById('modal-cert-img').src = imgSrc;
+            document.getElementById('modal-cert-title').innerText = title;
+            document.getElementById('modal-cert-issuer').innerHTML = `<i class="fa-solid fa-building-columns text-indigo-500"></i> ${issuer}`;
+            document.getElementById('modal-cert-date').innerHTML = `<i class="fa-regular fa-calendar mr-1 text-indigo-500"></i> ${date}`;
+            document.getElementById('modal-cert-desc').innerText = description;
+            document.getElementById('modal-cert-download').href = imgSrc;
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCertificateModal() {
+            const modal = document.getElementById('certificate-modal');
+            const modalBox = document.getElementById('certificate-modal-box');
+
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }, 150);
+        }
+
+        // Close modal on click outside box
+        document.getElementById('certificate-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeCertificateModal();
+            }
+        });
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('certificate-modal');
+                if (modal && !modal.classList.contains('hidden')) {
+                    closeCertificateModal();
+                }
+            }
+        });
+
+        // SCROLL REVEAL ANIMATION (Intersection Observer)
+        function initScrollReveal() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(sec => sec.classList.add('reveal-on-scroll'));
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            sections.forEach(sec => observer.observe(sec));
+        }
+
         window.onload = function() {
+            updateThemeIcons();
             calculateExcel();
-            renderSlide();
+            renderSlideContent();
+            initScrollReveal();
         }
     </script>
 </body>
